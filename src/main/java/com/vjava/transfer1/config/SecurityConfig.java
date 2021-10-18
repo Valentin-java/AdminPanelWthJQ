@@ -20,17 +20,16 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
-    private final BCryptPasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public SecurityConfig(@Qualifier("userServiceImpl") UserDetailsService userDetailsService, BCryptPasswordEncoder passwordEncoder) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -42,6 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .and()
                 .logout().logoutSuccessUrl("/");
+    }
+
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     //Фильтр для чтения скрытых полей в post запросах (пока в application.prop. - поставил флажок)
