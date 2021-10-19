@@ -74,8 +74,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User findByUsername(String username) {
-        em.getTransaction().begin();
         return (User) em.createQuery("SELECT u from User u where u.username = :username").setParameter("username", username).getSingleResult();
     }
 

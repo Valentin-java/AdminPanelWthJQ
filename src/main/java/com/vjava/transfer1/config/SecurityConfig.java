@@ -20,11 +20,13 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+    private final LoginSuccessHandler loginSuccessHandler;
 
 
     @Autowired
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler loginSuccessHandler) {
         this.userDetailsService = userDetailsService;
+        this.loginSuccessHandler = loginSuccessHandler;
     }
 
     @Autowired
@@ -36,8 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").hasRole("ADMIN")
+                .antMatchers("/page").hasRole("USER")
                 .and()
                 .formLogin()
+                .successHandler(loginSuccessHandler)
                 .and()
                 .logout().logoutSuccessUrl("/");
     }
