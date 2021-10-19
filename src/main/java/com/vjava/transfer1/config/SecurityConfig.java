@@ -34,9 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .and()
@@ -46,12 +45,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    //Фильтр для чтения скрытых полей в post запросах (пока в application.prop. - поставил флажок)
-    /*@Bean
-    public FilterRegistrationBean hiddenHttpMethodFilter() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new HiddenHttpMethodFilter());
-        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
-        return filterRegistrationBean;
-    }*/
 }

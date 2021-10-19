@@ -61,14 +61,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user, Long id) {
-        em.createQuery("UPDATE User u " +
-                "SET u.username = :username, u.password = :password WHERE u.id = :id")
-                .setParameter("username", user.getUsername())
-                .setParameter("password", user.getPassword())
-                .setParameter("id", id)
-                .executeUpdate();
-        em.getTransaction().commit();
-
+        User userUp = userDao.getById(id);
+        userUp.setUsername(user.getUsername());
+        userUp.setPassword(user.getPassword());
+        userUp.setConfirmPassword(user.getConfirmPassword());
+        userDao.save(userUp);
     }
 
     @Override

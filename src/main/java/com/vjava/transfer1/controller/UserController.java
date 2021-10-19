@@ -40,13 +40,13 @@ public class UserController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") User user, @PathVariable("id") Long id) {
         userService.update(user, id);
-        return "redirect: index";
+        return "redirect:/";
     }
 
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
-        return "redirect: index";
+        return "redirect:/";
     }
 
     @GetMapping("/new")
@@ -58,7 +58,7 @@ public class UserController {
     @PostMapping()
     public String add(@ModelAttribute("person") User user) {
         userService.saveUser(user);
-        return "redirect: index";
+        return "redirect:/";
     }
 
     @GetMapping("page")
