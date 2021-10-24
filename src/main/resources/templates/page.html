@@ -2,43 +2,79 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Страница Cars</title>
-    <style>
-        table th, table td {padding: 5px;}
-        .row  {
-            font-style: italic;
-        }
-        .even-row {
-            color: black;
-        }
-        .odd-row {
-            color: blue;
-        }
-    </style>
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+
 </head>
 <body>
 
-<div>
-    <h1>Ваша персональная страница</h1>
-    <h2><a th:href="@{/logout}">Выход из учетной записи</a></h2>
+<header>
+    <div class="container-fluid">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="col-11">
+                <h4 style ="color: white" th:text="${headMsg}">Head msg</h4>
+            </div>
+            <div class="col-1">
+                <a style="color: #9a988a" th:href="@{/logout}">Logout</a>
+            </div>
+        </nav>
+    </div>
 
-    <table border="1">
-        <tr>
-            <th>Ваш user_id</th>
-            <th>Имя</th>
-            <th>Пароль</th>
-
-
-        </tr>
-        <tr th:object="${user}">
-
-            <td th:text="${user.getId()}">Ваш user_id</td>
-            <td th:text="${user.getUsername()}">Имя</td>
-            <td th:text="${user.getPassword()}">Фамилия</td>
+</header>
 
 
-        </tr>
-    </table>
-</div>
+<main>
+    <div id="maincont" class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="page">User</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="colMain" class="col-10">
+                <div class="card">
+                    <div class="card-header text-left">
+                        About user
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:object="${mUser}">
+                                <td th:text="${mUser.getId()}">Ошибка</td>
+                                <td th:text="${mUser.getUsername()}">First Name</td>
+                                <td th:text="${mUser.getUsername()}">Last Name</td>
+                                <td th:text="${mUser.getAge()}">Age</td>
+                                <td th:text="${mUser.getEmail()}">Email</td>
+                                <td th:text="${mUser.getRoles()}">Role</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+<script src="../static/js/bootstrap.js"></script>
 </body>
 </html>

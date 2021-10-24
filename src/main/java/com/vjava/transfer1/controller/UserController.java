@@ -25,9 +25,13 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String showAll(Model model) {
+    public String showAll(Model model, Principal principal) {
         List<User> users = userService.findAll();
+        User mUser = userService.findByUsername(principal.getName());
+        String headMsg = mUser.getEmail() + " with roles: " + mUser.getRoles();
         model.addAttribute("people", users);
+        model.addAttribute("headMsg", headMsg);
+        model.addAttribute("mUser", mUser);
         return "index";
     }
 
@@ -43,6 +47,12 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("/findOne/{id}")
+    @ResponseBody
+    public User findOne(@PathVariable("id") Long id) {
+        return userService.findById(id);
+    }
+
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteById(id);
@@ -55,7 +65,7 @@ public class UserController {
         return "new";
     }
 
-    @PostMapping()
+    @PostMapping("/save")
     public String add(@ModelAttribute("person") User user) {
         userService.saveUser(user);
         return "redirect:/";
@@ -63,8 +73,10 @@ public class UserController {
 
     @GetMapping("page")
     public String userPage(Model model, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
+        User mUser = userService.findByUsername(principal.getName());
+        String headMsg = mUser.getEmail() + " with roles: " + mUser.getRoles();
+        model.addAttribute("mUser", mUser);
+        model.addAttribute("headMsg", headMsg);
         return "page";
     }
 

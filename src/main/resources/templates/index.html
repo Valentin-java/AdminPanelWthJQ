@@ -2,47 +2,154 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Страница Cars</title>
-    <style>
-        table th, table td {padding: 5px;}
-        .row  {
-            font-style: italic;
-        }
-        .even-row {
-            color: black;
-        }
-        .odd-row {
-            color: blue;
-        }
-    </style>
+    <title>Admin panel</title>
+
+
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+
 </head>
 <body>
 
-<div>
-    <h1>Список пользователей</h1>
-    <h2><a href="/new"> Добавить нового пользователя</a></h2>
-    <h2><a th:href="@{/logout}">Выход из учетной записи</a></h2>
-    <table border="1">
-        <tr>
-            <th>Количество</th>
-            <th>Имя</th>
-            <th>Пароль</th>
-            <th>Редактировать</th>
-            <th>Удалить</th>
-        </tr>
-        <tr th:each="user, state : ${people}"
-            class="row" th:classappend="${state.odd} ? 'odd-row' : 'even-row'">
-            <td th:text="${state.count}">Количество</td>
-            <td th:text="${user.getUsername()}">Имя</td>
-            <td th:text="${user.getPassword()}">Пароль</td>
-            <td><a th:href="@{/{id}/edit (id=${user.getId()})}">Редактировать</a></td>
-            <td>
-                <form th:method="delete" th:action="@{/{id}(id=${user.getId()})}">
-                    <input type="submit" value="Удалить">
-                </form>
-            </td>
-        </tr>
-    </table>
-</div>
+<header>
+    <div class="container-fluid">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="col-11">
+                <h4 style ="color: white" th:text="${headMsg}">Head msg</h4>
+            </div>
+            <div class="col-1">
+                <a style="color: #9a988a" th:href="@{/logout}">Logout</a>
+            </div>
+        </nav>
+    </div>
+
+</header>
+
+
+<main>
+    <div id="maincont" class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page">User</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-10">
+                <div id="aPanel" class="row">
+                    <h4>Admin Panel</h4>
+                </div>
+                <div class="card text-center">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Users table</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/new">New user</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-left">All users</h5>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">First Name</th>
+                               <!-- <th scope="col">Last Name</th>-->
+                                <th scope="col">Age</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${people}">
+                                <td th:text="${user.getId()}">user id</td>
+                                <td th:text="${user.getUsername()}">First Name</td>
+                                <!--<td th:text="${user.getUsername()}">Last Name</td>-->
+                                <td th:text="${user.getAge()}">Age</td>
+                                <td th:text="${user.getEmail()}">Email</td>
+                                <td th:text="${user.getRoles()}">Role</td>
+                                <td><a class="btn btn-info eBtn" th:href="@{/findOne/{id}(id=${user.getId()})}">Edit</a>
+                                </td>
+
+                                <div class="myForm">
+                                    <form th:method="post" th:action="@{/save}">
+                                        <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                                    <label class="form-control-label" for="id">ID: </label>
+                                                                    <input type="text" class="form-control" id="id" name="id" value="" />
+                                                                </div>
+                                                        <div class="form-group">
+                                                                    <label class="form-control-label" for="username">firstName: </label>
+                                                                    <input type="text" class="form-control" id="username" name="username" value="" />
+                                                                </div>
+                                                        <div class="form-group">
+                                                                    <label class="form-control-label" for="age">age: </label>
+                                                                    <input type="text" class="form-control" id="age" name="age" value="" />
+                                                                </div>
+                                                        <div class="form-group">
+                                                                    <label class="form-control-label" for="email">password: </label>
+                                                                    <input type="email" class="form-control" id="email" name="email" value="" />
+                                                                </div>
+                                                        <div class="form-group">
+                                                                    <label class="form-control-label" for="password">confirmPassword: </label>
+                                                                    <input type="text" class="form-control" id="password" name="password" value="" />
+                                                                </div>
+                                                        <div class="form-group">
+                                                                    <label class="form-control-label" for="confirmPassword">ID: </label>
+                                                                    <input type="text" class="form-control" id="confirmPassword" name="confirmPassword" value="" />
+                                                                </div>
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <td>
+                                    <form th:method="delete" th:action="@{/{id}(id=${user.getId()})}">
+                                        <input class="btn btn-danger" type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+<script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
 </body>
 </html>
