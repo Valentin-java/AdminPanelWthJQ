@@ -8,12 +8,12 @@ $(document).ready(function () {
         if (text == 'Edit') {
 
             $.get(href,function (user) {
-
+                $('.myForm #id').val(user.id);
                 $('.myForm #username').val(user.username);
                 $('.myForm #age').val(user.age);
                 $('.myForm #email').val(user.email);
-                $('.myForm #password').val(user.password);
-                $('.myForm #confirmPassword').val(user.password);
+
+
             });
             $('.myForm #EditModal').modal();
         } else {

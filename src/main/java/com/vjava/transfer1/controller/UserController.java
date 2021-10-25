@@ -1,6 +1,7 @@
 package com.vjava.transfer1.controller;
 
 
+import com.vjava.transfer1.model.Role;
 import com.vjava.transfer1.model.User;
 import com.vjava.transfer1.service.UserService;
 import com.vjava.transfer1.service.UserServiceImpl;
@@ -27,11 +28,13 @@ public class UserController {
     @GetMapping("/")
     public String showAll(Model model, Principal principal) {
         List<User> users = userService.findAll();
+        List<Role> roles = userService.getRoles();
         User mUser = userService.findByUsername(principal.getName());
         String headMsg = mUser.getEmail() + " with roles: " + mUser.getRoles();
         model.addAttribute("people", users);
         model.addAttribute("headMsg", headMsg);
         model.addAttribute("mUser", mUser);
+        model.addAttribute("roles", roles);
         return "index";
     }
 
@@ -41,11 +44,11 @@ public class UserController {
         return "edit";
     }
 
-    @PatchMapping("/{id}")
+   /* @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") User user, @PathVariable("id") Long id) {
         userService.update(user, id);
         return "redirect:/";
-    }
+    }*/
 
     @GetMapping("/findOne")
     @ResponseBody
@@ -71,7 +74,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public String add(@ModelAttribute("person") User user) {
+    public String add(User user) {
         userService.saveUser(user);
         return "redirect:/";
     }

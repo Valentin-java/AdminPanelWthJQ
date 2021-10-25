@@ -1,5 +1,6 @@
 package com.vjava.transfer1.service;
 
+import com.vjava.transfer1.model.Role;
 import com.vjava.transfer1.model.User;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public interface UserService {
     void saveUser(User user);
     void deleteById(Long id);
     User findByUsername(String username);
-    void update(User user, Long id);
+    void update(User user);
+    List<Role> getRoles();
 
 }

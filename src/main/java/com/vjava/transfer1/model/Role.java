@@ -51,6 +51,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return name.contains("ROLE_ADMIN")?"ADMIN":"USER";
+        return this.name;
     }
 }

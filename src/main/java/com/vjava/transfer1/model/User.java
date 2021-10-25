@@ -27,6 +27,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
+
+
     @Transient
     private String confirmPassword;
 
@@ -94,7 +96,9 @@ public class User {
         this.confirmPassword = confirmPassword;
     }
 
-
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 
     public Set<Role> getRoles() {
         return roles;
