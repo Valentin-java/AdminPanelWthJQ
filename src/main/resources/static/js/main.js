@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         if (text == 'Edit') {
 
-            $.get(href,function (user, status) {
+            $.get(href,function (user) {
 
                 $('.myForm #username').val(user.username);
                 $('.myForm #age').val(user.age);

@@ -47,9 +47,9 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/findOne/{id}")
+    @GetMapping("/findOne")
     @ResponseBody
-    public User findOne(@PathVariable("id") Long id) {
+    public User findOne(Long id) {
         return userService.findById(id);
     }
 
