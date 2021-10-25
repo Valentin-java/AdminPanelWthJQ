@@ -23,7 +23,6 @@
                         <div class="form-group">
                             <input type="hidden" class="form-control" readonly id="id" name="id" value="" />
                         </div>
-                    <div class="modal-body">
                         <div class="form-group">
                             <label class="form-control-label" for="username">firstName: </label>
                             <input type="text" class="form-control" id="username" name="username" value="" />
@@ -43,10 +42,13 @@
 
                         <div class="form-group">
                             <label for="infoRole">Role</label>
-                            <select multiple class="form-control" id="infoRole">
-                                <th:block th:each="role : ${roles}">
+                            <select multiple class="form-control" id="infoRole" name="infoRole">
+                                <option>ADMIN</option>
+                                <option>USER</option>
+
+                                <!--<th:block th:each="role : ${roles}">
                                 <option th:text="${role.getName()}"></option>
-                                </th:block>
+                                </th:block>-->
 
                             </select>
                         </div>
@@ -135,7 +137,6 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">First Name</th>
-                               <!-- <th scope="col">Last Name</th>-->
                                 <th scope="col">Age</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
@@ -147,7 +148,6 @@
                             <tr th:each="user : ${people}">
                                 <td th:text="${user.getId()}">user id</td>
                                 <td th:text="${user.getUsername()}">First Name</td>
-                                <!--<td th:text="${user.getUsername()}">Last Name</td>-->
                                 <td th:text="${user.getAge()}">Age</td>
                                 <td th:text="${user.getEmail()}">Email</td>
                                 <td th:text="${user.getRoles()}">Role</td>

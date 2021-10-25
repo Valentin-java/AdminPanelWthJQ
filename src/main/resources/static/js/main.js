@@ -13,7 +13,6 @@ $(document).ready(function () {
                 $('.myForm #age').val(user.age);
                 $('.myForm #email').val(user.email);
 
-
             });
             $('.myForm #EditModal').modal();
         } else {

@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(User user) {
         user.setPassword(passwordEncoder().encode(user.getPassword()));
+
         Set<Role> roles = new HashSet<>();
         roles.add(roleDao.getById(1L));
         user.setRoles(roles);
@@ -65,14 +66,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) {
-        User userUp = userDao.getById(user.getId());
-        userUp.setUsername(user.getUsername());
-        userUp.setPassword(user.getPassword());
-        userUp.setConfirmPassword(user.getConfirmPassword());
-        userUp.setAge(user.getAge());
-        userUp.setEmail(user.getEmail());
-        userDao.save(userUp);
+    public void update(User user, String infoRole) {
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
+
+        Set<Role> roles = new HashSet<>();
+        //чистим роли если они есть, и ставим новые свои
+        if (user.getRoles() != null) {
+            user.setRoles(null);
+        }
+        //у нас юзер будет точно, тогда только дописываем или удаляем админа
+        if (infoRole.contains("ADMIN")) {
+        roles.add(roleDao.getById(2L));
+        }
+        if (infoRole.contains("USER")) {
+        roles.add(roleDao.getById(1L));
+        }
+        user.setRoles(roles);
+
+        userDao.saveAndFlush(user);
     }
 
     @Override

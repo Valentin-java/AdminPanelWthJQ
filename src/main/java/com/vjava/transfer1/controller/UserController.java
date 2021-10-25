@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -74,8 +75,12 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public String add(User user) {
+    public String add(User user, String infoRole) {
+        if (infoRole != null) {
+            userService.update(user, infoRole);
+        } else {
         userService.saveUser(user);
+        }
         return "redirect:/";
     }
 
