@@ -88,9 +88,7 @@
     <div class="container-fluid">
         <nav class="navbar navbar-dark bg-dark">
             <div class="col-11">
-            <h4 style ="color: white"><span th:text="${mail}"></span> with roles: <span style ="color: white" th:each="authority : ${#authentication.getAuthorities()}"
-                                 th:if="${authority.getAuthority().startsWith('ROLE_')}"
-                                 th:text="${authority.getAuthority().replaceFirst('ROLE_', '')}"></span></h4>
+            <h4 style ="color: white"><span th:text="${mUser.getEmail()}"></span> with roles: <span style ="color: white" th:text="${mUser.getRoleList()}"></span></h4>
             </div>
 
             <div class="col-1">
@@ -150,9 +148,10 @@
                                 <td th:text="${user.getUsername()}">First Name</td>
                                 <td th:text="${user.getAge()}">Age</td>
                                 <td th:text="${user.getEmail()}">Email</td>
-                                <td th:each="role : ${user.getRoles()}"
+                                <td th:text="${user.getRoleList()}">Role</td>
+                                <!--<td th:each="role : ${user.getRoles()}"
                                     th:if="${role.getName().startsWith('ROLE_')}"
-                                    th:text="${role.getName().replaceFirst('ROLE_', '')}">Role</td>
+                                    th:text="${role.getName().replaceFirst('ROLE_', '')}">Role</td>-->
                                 <td><a class="btn btn-info eBtn" th:href="@{findOne/(id=${user.getId()})}">Edit</a></td>
                                 <td><a class="btn btn-danger delBtn" th:href="@{delete/(id=${user.getId()})}">Delete</a></td>
                             </tr>

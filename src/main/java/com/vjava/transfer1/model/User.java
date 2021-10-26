@@ -82,6 +82,18 @@ public class User {
         this.password = password;
     }
 
+    public String getRoleList() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Role r : getRoles()) {
+            if (r.getName().startsWith("ROLE_")) {
+                sb.append(r.getName().replaceFirst("ROLE_", " "));
+                sb.append(",");
+            }
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
 
     public Set<Role> getRoles() {
         return roles;

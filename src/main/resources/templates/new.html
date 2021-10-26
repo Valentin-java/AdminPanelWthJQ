@@ -11,17 +11,15 @@
     <div class="container-fluid">
         <nav class="navbar navbar-dark bg-dark">
             <div class="col-11">
-                <h4 style ="color: white"><span th:text="${mail}"></span> with roles:
-                    <span style ="color: white" th:each="authority : ${#authentication.getAuthorities()}"
-                                                th:if="${authority.getAuthority().startsWith('ROLE_')}"
-                                                th:text="${authority.getAuthority().replaceFirst('ROLE_', '')}"></span>
-                </h4>
+                <h4 style ="color: white"><span th:text="${mUser.getEmail()}"></span> with roles: <span style ="color: white" th:text="${mUser.getRoleList()}"></span></h4>
             </div>
+
             <div class="col-1">
                 <a style="color: #9a988a" th:href="@{/logout}">Logout</a>
             </div>
         </nav>
     </div>
+
 </header>
 
 <main>

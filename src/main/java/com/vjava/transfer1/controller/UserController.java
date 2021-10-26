@@ -30,8 +30,8 @@ public class UserController {
     public String showAll(Model model, Principal principal) {
         List<User> users = userService.findAll();
         User mUser = userService.findByUsername(principal.getName());
+        model.addAttribute("mUser", mUser);
         model.addAttribute("people", users);
-        model.addAttribute("mail", mUser.getEmail());
         return "index";
     }
 
@@ -67,7 +67,7 @@ public class UserController {
     @GetMapping("/new")
     public String addForm(Model model, Principal principal) {
         User mUser = userService.findByUsername(principal.getName());
-        model.addAttribute("mail", mUser.getEmail());
+        model.addAttribute("mUser", mUser);
         model.addAttribute("person", new User());
         return "new";
     }
