@@ -13,8 +13,9 @@
     <div class="container-fluid">
         <nav class="navbar navbar-dark bg-dark">
             <div class="col-11">
-                <h4 style ="color: white" th:text="${headMsg}">Head msg</h4>
+                <h4 style ="color: white"><span th:text="${mUser.getEmail()}"></span> with roles: <span style ="color: white" th:text="${mUser.getRoleList()}"></span></h4>
             </div>
+
             <div class="col-1">
                 <a style="color: #9a988a" th:href="@{/logout}">Logout</a>
             </div>
@@ -48,7 +49,6 @@
                             <tr>
                                 <th scope="col">id</th>
                                 <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
                                 <th scope="col">Age</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
@@ -58,10 +58,9 @@
                             <tr th:object="${mUser}">
                                 <td th:text="${mUser.getId()}">Ошибка</td>
                                 <td th:text="${mUser.getUsername()}">First Name</td>
-                                <td th:text="${mUser.getUsername()}">Last Name</td>
                                 <td th:text="${mUser.getAge()}">Age</td>
                                 <td th:text="${mUser.getEmail()}">Email</td>
-                                <td th:text="${mUser.getRoles()}">Role</td>
+                                <td th:text="${mUser.getRoleList()}">Role</td>
                             </tr>
                             </tbody>
                         </table>

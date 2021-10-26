@@ -60,28 +60,48 @@
     </form>
 </div>
 <div class="myForm">
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+    <form th:method="post" th:action="@{/delete}">
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" readonly id="did" name="id" value="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="username">firstName: </label>
+                            <input type="text" class="form-control" readonly id="dusername" name="username" value="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="age">age: </label>
+                            <input type="text" class="form-control" readonly id="dage" name="age" value="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="email">email: </label>
+                            <input type="email" class="form-control" readonly id="demail" name="email" value="" />
+                        </div>
 
-                    <p class="alert alert-danger">
-                        Are you sure to delete this user ?
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a href="" class="btn btn-danger" id="delRef">Delete</a>
+
+                        <p class="alert alert-danger">
+                            Are you sure to delete this user ?
+                        </p>
+                        <hr>
+                        <div class="form-group">
+                            <button type="submit"  class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <header>
@@ -153,7 +173,7 @@
                                     th:if="${role.getName().startsWith('ROLE_')}"
                                     th:text="${role.getName().replaceFirst('ROLE_', '')}">Role</td>-->
                                 <td><a class="btn btn-info eBtn" th:href="@{findOne/(id=${user.getId()})}">Edit</a></td>
-                                <td><a class="btn btn-danger delBtn" th:href="@{delete/(id=${user.getId()})}">Delete</a></td>
+                                <td><a class="btn btn-danger delBtn" th:href="@{findOne/(id=${user.getId()})}">Delete</a></td>
                             </tr>
                             </tbody>
                         </table>
