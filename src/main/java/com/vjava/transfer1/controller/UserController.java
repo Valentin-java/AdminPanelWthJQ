@@ -29,13 +29,9 @@ public class UserController {
     @GetMapping("/")
     public String showAll(Model model, Principal principal) {
         List<User> users = userService.findAll();
-        List<Role> roles = userService.getRoles();
         User mUser = userService.findByUsername(principal.getName());
-        String headMsg = mUser.getEmail() + " with roles: " + mUser.getRoles();
         model.addAttribute("people", users);
-        model.addAttribute("headMsg", headMsg);
-        model.addAttribute("mUser", mUser);
-        model.addAttribute("roles", roles);
+        model.addAttribute("mail", mUser.getEmail());
         return "index";
     }
 
@@ -69,7 +65,9 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String addForm(Model model) {
+    public String addForm(Model model, Principal principal) {
+        User mUser = userService.findByUsername(principal.getName());
+        model.addAttribute("mail", mUser.getEmail());
         model.addAttribute("person", new User());
         return "new";
     }

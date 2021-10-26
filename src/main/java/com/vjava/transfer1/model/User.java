@@ -27,11 +27,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-
-
-    @Transient
-    private String confirmPassword;
-
     @ManyToMany
     @JsonManagedReference
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
@@ -40,12 +35,11 @@ public class User {
 
     public User() {}
 
-    public User(String username, int age, String email, String password, String confirmPassword) {
+    public User(String username, int age, String email, String password) {
         this.username = username;
         this.age = age;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
     public long getId() {
@@ -88,17 +82,6 @@ public class User {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public void addRole(Role role) {
-        this.roles.add(role);
-    }
 
     public Set<Role> getRoles() {
         return roles;
