@@ -1,21 +1,18 @@
 package com.vjava.transfer1.controller;
 
 
-import com.vjava.transfer1.model.Role;
 import com.vjava.transfer1.model.User;
 import com.vjava.transfer1.service.UserService;
-import com.vjava.transfer1.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @Controller
+
 public class UserController {
 
 
@@ -26,20 +23,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping("admin/")
     public String showAll(Model model, Principal principal) {
         List<User> users = userService.findAll();
         User mUser = userService.findByUsername(principal.getName());
         model.addAttribute("mUser", mUser);
         model.addAttribute("people", users);
-        return "index";
+        return "admin/index";
     }
 
-    @GetMapping("/{id}/edit")
+    /*@GetMapping("/{id}/edit")
     public String updateForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("person", userService.findById(id));
-        return "edit";
-    }
+        return "admin/edit";
+    }*/
 
    /* @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") User user, @PathVariable("id") Long id) {
@@ -47,7 +44,7 @@ public class UserController {
         return "redirect:/";
     }*/
 
-    @GetMapping("/findOne")
+    @GetMapping("admin/findOne")
     @ResponseBody
     public User findOne(Long id) {
         return userService.findById(id);
@@ -61,16 +58,16 @@ public class UserController {
     @PostMapping("/delete")
     public String deleteUser(Long id) {
         userService.deleteById(id);
-        return "redirect:/";
+        return "redirect:admin/";
     }
 
-    @GetMapping("/new")
+    /*@GetMapping("admin/new")
     public String addForm(Model model, Principal principal) {
         User mUser = userService.findByUsername(principal.getName());
         model.addAttribute("mUser", mUser);
         model.addAttribute("person", new User());
-        return "new";
-    }
+        return "admin/new";
+    }*/
 
     @PostMapping("/save")
     public String add(User user, String infoRole) {
@@ -79,16 +76,17 @@ public class UserController {
         } else {
         userService.saveUser(user);
         }
-        return "redirect:/";
+        return "redirect:admin/";
     }
 
-    @GetMapping("page")
+
+    @GetMapping("/")
     public String userPage(Model model, Principal principal) {
         User mUser = userService.findByUsername(principal.getName());
         String headMsg = mUser.getEmail() + " with roles: " + mUser.getRoles();
         model.addAttribute("mUser", mUser);
         model.addAttribute("headMsg", headMsg);
-        return "page";
+        return "userpage";
     }
 
 

@@ -1,6 +1,17 @@
 .container {
     background-color: #f7f7f7;
 }
+.card-title {
+    background-color: #f7f7f7;
+    margin-bottom: 0;
+    padding-bottom: 12px;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+.title-cont {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 
 
 .container-fluid {
@@ -12,10 +23,10 @@
 }
 
 #aPanel {
-    margin-left: 5px;
-    margin-bottom: 5px;
+    margin-left: 15px;
+    margin-bottom: 15px;
 }
-.col-2 {
+.col-3 {
     margin-top: 10px;
 }
 .row{

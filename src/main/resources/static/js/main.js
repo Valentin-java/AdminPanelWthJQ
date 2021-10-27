@@ -7,10 +7,10 @@ $(document).ready(function () {
 
 
         $.get(href,function (user) {
-            $('.myForm #id').val(user.id);
-            $('.myForm #username').val(user.username);
-            $('.myForm #age').val(user.age);
-            $('.myForm #email').val(user.email);
+            $('.myForm #iid').val(user.id);
+            $('.myForm #iusername').val(user.username);
+            $('.myForm #iage').val(user.age);
+            $('.myForm #iemail').val(user.email);
 
         });
         $('.myForm #EditModal').modal();
