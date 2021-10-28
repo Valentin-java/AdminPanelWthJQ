@@ -1,6 +1,11 @@
 .container {
     background-color: #f7f7f7;
 }
+#formNew {
+    padding-right: 35%;
+    padding-left: 25%;
+    text-align:center;
+}
 .card-title {
     background-color: #f7f7f7;
     margin-bottom: 0;
