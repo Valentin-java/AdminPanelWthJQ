@@ -1,11 +1,5 @@
 $(document).ready(function () {
 
-
-
-    /*$(document).on('click','#idElement',function(e){
-        //код обработчика
-    });*/
-
     $(document).on('click', '.eBtn', function (event) {
         event.preventDefault();
         let href = $(this).attr('href');
@@ -51,11 +45,6 @@ $(document).ready(function () {
         });
 
     });
-
-    /*$('.eBtn').on('click',function(e) {
-        e.preventDefault();
-        console.log("it works!");
-    });*/
 
 
 

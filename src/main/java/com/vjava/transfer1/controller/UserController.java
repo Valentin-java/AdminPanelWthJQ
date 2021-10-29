@@ -25,10 +25,8 @@ public class UserController {
 
     @GetMapping("admin/")
     public String showAll(Model model, Principal principal) {
-        //List<User> users = userService.findAll();
         User mUser = userService.findByUsername(principal.getName());
         model.addAttribute("mUser", mUser);
-        //model.addAttribute("people", users);
         return "admin/index";
     }
 
@@ -38,42 +36,18 @@ public class UserController {
         return userService.findAll();
     }
 
-    /*@GetMapping("/{id}/edit")
-    public String updateForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("person", userService.findById(id));
-        return "admin/edit";
-    }*/
-
-   /* @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") User user, @PathVariable("id") Long id) {
-        userService.update(user, id);
-        return "redirect:/";
-    }*/
-
     @GetMapping("admin/findOne/{id}")
     @ResponseBody
     public User findOne(@PathVariable("id") Long id) {
         return userService.findById(id);
     }
 
-   /* @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        userService.deleteById(id);
-        return "redirect:/";
-    }*/
+
     @PostMapping("/delete")
     public String deleteUser(Long id) {
         userService.deleteById(id);
         return "redirect:admin/";
     }
-
-    /*@GetMapping("admin/new")
-    public String addForm(Model model, Principal principal) {
-        User mUser = userService.findByUsername(principal.getName());
-        model.addAttribute("mUser", mUser);
-        model.addAttribute("person", new User());
-        return "admin/new";
-    }*/
 
     @PostMapping("/save")
     public String add(User user, String infoRole) {
@@ -85,7 +59,6 @@ public class UserController {
         return "redirect:admin/";
     }
 
-
     @GetMapping("/")
     public String userPage(Model model, Principal principal) {
         User mUser = userService.findByUsername(principal.getName());
@@ -94,7 +67,5 @@ public class UserController {
         model.addAttribute("headMsg", headMsg);
         return "userpage";
     }
-
-
 
 }
