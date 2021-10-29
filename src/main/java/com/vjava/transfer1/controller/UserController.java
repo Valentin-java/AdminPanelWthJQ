@@ -25,11 +25,17 @@ public class UserController {
 
     @GetMapping("admin/")
     public String showAll(Model model, Principal principal) {
-        List<User> users = userService.findAll();
+        //List<User> users = userService.findAll();
         User mUser = userService.findByUsername(principal.getName());
         model.addAttribute("mUser", mUser);
-        model.addAttribute("people", users);
+        //model.addAttribute("people", users);
         return "admin/index";
+    }
+
+    @GetMapping("admin/findAll")
+    @ResponseBody
+    public List<User> fiandAll() {
+        return userService.findAll();
     }
 
     /*@GetMapping("/{id}/edit")
@@ -44,9 +50,9 @@ public class UserController {
         return "redirect:/";
     }*/
 
-    @GetMapping("admin/findOne")
+    @GetMapping("admin/findOne/{id}")
     @ResponseBody
-    public User findOne(Long id) {
+    public User findOne(@PathVariable("id") Long id) {
         return userService.findById(id);
     }
 
